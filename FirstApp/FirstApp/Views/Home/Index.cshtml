@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@{ 
+    string HomeTitle = ViewBag.HomeTitle;
+    string HomeTitleViewData = (string)ViewData["EMSTitle"];
+}
+
+<div class="jumbotron">
+    <h1>@HomeTitle</h1>
+    <p class="lead">We are making EMS as open source and feel free to use.</p>
+    <p><a href="#" class="btn btn-primary btn-lg">Explore more &raquo;</a></p>
+
+
+    <p>View Data: @HomeTitleViewData</p>
+</div>
