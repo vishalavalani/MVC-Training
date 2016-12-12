@@ -168,6 +168,8 @@
     <Content Include="Views\Home\GetEmployee.cshtml" />
     <Content Include="Views\Home\GetStrongEmployee.cshtml" />
     <Content Include="Views\Home\GetStrongStudent.cshtml" />
+    <Content Include="Views\Home\AddEmployee.cshtml" />
+    <Content Include="Views\Home\GetEmployees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

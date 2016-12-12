@@ -12,4 +12,16 @@ namespace FirstApp.Models
         public string LastName { get; set; }
         public int Salary { get; set; }
     }
+
+    public class EmployeeMain
+    {
+        public List<Employee> EmployeeList { get; set; }
+        public int PageNumber { get; set; }
+        public int TotalNumberOfItemsPerPage { get; set; }
+        public int TotalItems { get; set; }
+        public EmployeeMain()
+        {
+            EmployeeList = new List<Employee>();
+        }
+    }
 }

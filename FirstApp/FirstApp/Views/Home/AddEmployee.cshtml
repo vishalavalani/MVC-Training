@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "AddEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Employee</h2>
+
+<p style="color:red;">
+    @ViewBag.ErrorMessage
+</p>
+<form action="/Home/AddEmployee" method="POST" > 
+    First Name: <input type="text" class="form-control" name="FirstName"  /> <br />
+    Last Name: <input type="text" class="form-control" name="LastName" /> <br />
+    Salary: <input type="text" class="form-control" name="Salary" /> <br />
+    <input type="submit" value="Add Employee" class="btn btn-default" />
+</form>

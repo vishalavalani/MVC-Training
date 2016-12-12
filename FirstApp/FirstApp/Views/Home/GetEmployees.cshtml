@@ -1,0 +1,47 @@
+﻿@using FirstApp.Models;
+@model EmployeeMain
+@{
+    ViewBag.Title = "GetEmployees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Get Employees</h2>
+<table class="table">
+    <tr>
+        <th>
+            Employee ID
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Salary
+        </th>
+    </tr>
+    <tbody>
+        @foreach (var itm in Model.EmployeeList)
+            {
+            <tr>
+                <td>@itm.EmployeeID</td>
+                <td>@itm.FirstName</td>
+                <td>@itm.LastName</td>
+                <td>@itm.Salary.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
+<p>
+    @if (Model.PageNumber * Model.TotalNumberOfItemsPerPage < Model.TotalItems)
+    {
+        for (int i = 0; i < Convert.ToInt16(Math.Ceiling((double)Model.TotalItems / Model.TotalNumberOfItemsPerPage)); i++)
+        {
+            <a>@(i + 1)</a>
+        }
+    }
+</p>
