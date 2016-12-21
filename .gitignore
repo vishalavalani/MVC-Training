@@ -3,3 +3,10 @@
 /FirstApp/FirstApp/obj
 /FirstApp/FirstApp.Models/bin
 /FirstApp/FirstApp.Models/obj
+/FirstDbApp/FirstDbApp/bin
+/FirstDbApp/FirstDbApp/obj
+/FirstDbApp/FirstDbApp.Data/bin
+/FirstDbApp/FirstDbApp.Data/obj
+/FirstDbApp/FirstDbApp.ViewModel/bin
+/FirstDbApp/FirstDbApp.ViewModel/obj
+/FirstDbApp/packages
