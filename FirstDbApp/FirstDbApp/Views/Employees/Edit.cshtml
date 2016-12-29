@@ -1,0 +1,115 @@
+﻿@using FirstDbApp.ViewModel;
+@model EmployeeVM
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Employee</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model=>model.EmployeeID)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedDate)
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                First Name:
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Last Name:
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Email:
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Address:
+            </div>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @rows = 5 })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Contact Number:
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Birth Date:
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Department:
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentID, null, "Select Department", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Gender:
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GenderID, null, "Select Gender", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Joining Date:
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateOfJoining, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Is Active:
+            </div>
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.IsActive, htmlAttributes: new { @style = "margin-top:12px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+            </div>
+            <div class="col-md-10">
+                <input class="btn btn-default" type="submit" value="Update" />
+            </div>
+        </div>
+    </div>
+}

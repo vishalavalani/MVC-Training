@@ -35,5 +35,7 @@ namespace FirstDbApp.ViewModel
                 return FirstName + " " + LastName;
             }
         }
+
+
     }
 }
