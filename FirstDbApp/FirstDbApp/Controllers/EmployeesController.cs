@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace FirstDbApp.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private EMSTrainingEntities db = new EMSTrainingEntities();
@@ -52,15 +53,43 @@ namespace FirstDbApp.Controllers
         [HttpPost]
         public ActionResult Create(EmployeeVM employee)
         {
-            Employee empdb = (Employee)employee;
-            empdb.CreatedBy = "1";
-            empdb.ModifiedBy = "1";
-            empdb.CreatedDate = DateTime.Now;
-            empdb.ModifiedDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var q = db.Employees.Where(d => d.FirstName == employee.FirstName
+                    && d.LastName == employee.LastName).FirstOrDefault();
 
-            db.Employees.Add(empdb);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                    if (q != null)
+                    {
+                        throw new Exception(employee.FirstName + " " + employee.LastName + " already exists in database. Try some other name or contact admin");
+                    }
+
+                    Employee empdb = ConvertToEmployeeDBObj(employee);
+                    empdb.CreatedBy = "1";
+                    empdb.ModifiedBy = "1";
+                    empdb.CreatedDate = DateTime.Now;
+                    empdb.ModifiedDate = DateTime.Now;
+
+                    db.Employees.Add(empdb);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("CustomError", ex.Message);
+                    ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
+                    ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
+                ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+                return View();
+            }
         }
 
         public ActionResult Edit(int? id)
@@ -88,7 +117,7 @@ namespace FirstDbApp.Controllers
                                        ModifiedBy = a.ModifiedBy,
                                    }).FirstOrDefault();
 
-            if(employee == null)
+            if (employee == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
@@ -100,17 +129,64 @@ namespace FirstDbApp.Controllers
         [HttpPost]
         public ActionResult Edit(EmployeeVM employee)
         {
-            Employee empdb = (Employee)employee;
-            empdb.ModifiedDate = DateTime.Now;
-            empdb.ModifiedBy = "1";
-            db.Entry(empdb).State = EntityState.Modified;
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var q = db.Employees.Where(d => d.FirstName == employee.FirstName
+                            && d.LastName == employee.LastName).FirstOrDefault();
 
-            ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+                    if (q != null)
+                    {
+                        throw new Exception(employee.FirstName + " " + employee.LastName + " already exists in database. Try some other name or contact admin");
+                    }
 
-            return RedirectToAction("Index");
+                    Employee empdb = ConvertToEmployeeDBObj(employee);
+                    empdb.ModifiedDate = DateTime.Now;
+                    empdb.ModifiedBy = "1";
+                    db.Entry(empdb).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
+                    ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("CustomError", ex.Message);
+                    ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
+                    ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.GenderID = new SelectList(db.Genders, "GenderID", "Name");
+                ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+                return View();
+            }
         }
 
+        public Employee ConvertToEmployeeDBObj(EmployeeVM v)
+        {
+            Employee d = new Employee();
+            d.EmployeeID = v.EmployeeID;
+            d.FirstName = v.FirstName;
+            d.LastName = v.LastName;
+            d.Email = v.Email;
+            d.Address = v.Address;
+            d.ContactNumber = v.ContactNumber;
+            d.DateOfBirth = v.DateOfBirth;
+            d.DateOfJoining = v.DateOfJoining;
+            d.IsActive = v.IsActive;
+            d.DepartmentID = v.DepartmentID;
+            d.GenderID = v.GenderID;
+            d.CreatedDate = v.CreatedDate;
+            d.CreatedBy = v.CreatedBy;
+            d.ModifiedDate = v.ModifiedDate;
+            d.ModifiedBy = v.ModifiedBy;
+            return d;
+        }
     }
 }

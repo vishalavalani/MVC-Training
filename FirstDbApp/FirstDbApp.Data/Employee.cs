@@ -11,7 +11,7 @@ namespace FirstDbApp.Data
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Employee
     {
         public int EmployeeID { get; set; }
@@ -29,29 +29,8 @@ namespace FirstDbApp.Data
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
-
+    
         public virtual Department Department { get; set; }
         public virtual Gender Gender { get; set; }
-
-        public static explicit operator Employee(FirstDbApp.ViewModel.EmployeeVM employee)
-        {
-            Employee empdb = new Employee();
-            empdb.EmployeeID = employee.EmployeeID;
-            empdb.FirstName = employee.FirstName;
-            empdb.LastName = employee.LastName;
-            empdb.GenderID = employee.GenderID;
-            empdb.IsActive = employee.IsActive;
-            empdb.DepartmentID = employee.DepartmentID;
-            empdb.Address = employee.Address;
-            empdb.DateOfBirth = employee.DateOfBirth;
-            empdb.DateOfJoining = employee.DateOfJoining;
-            empdb.ContactNumber = employee.ContactNumber;
-            empdb.Email = employee.Email;
-            empdb.CreatedBy = employee.CreatedBy;
-            empdb.CreatedDate = employee.CreatedDate;
-            empdb.ModifiedBy = employee.ModifiedBy;
-            empdb.ModifiedDate = employee.ModifiedDate;
-            return empdb;
-        }
     }
 }
